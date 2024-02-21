@@ -1,0 +1,68 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15rem;
+}
+.Choice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    border: #735D78 solid .5rem;
+    width: fit-content;
+    height: fit-content;
+    padding: 3rem;
+}
+
+.Choice h2{
+    margin: 0;
+    padding: 0 .5rem 1.5rem .5rem;
+    color: rgba(0,0,0,.85);
+    font-size: 5rem;
+}
+
+.options{
+    display: flex;
+    flex-direction: row;
+}
+
+.AddBtn{
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    padding: .5rem;
+    width: 6rem;
+    height: fit-content;
+    border: #000000 solid .15rem;
+    border-radius: 1.5rem;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ViewBtn{
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    padding: .5rem;
+    width: 6rem;
+    height: fit-content;
+    border: #000000 solid .15rem;
+    border-radius: 1.5rem;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.ViewBtn:hover{
+    background-color: #735D78;
+    color: white;
+    border: whitesmoke solid .15rem;
+
+}
+
+.AddBtn:hover{
+    background-color: #735D78;
+    color: white;
+    border: whitesmoke solid .15rem;
+
+}
