@@ -5,9 +5,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import classes from "./css/HomePage.module.css";
 
-
-const AddBookForm = () => {
+const AddBookForm = (props) => {
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -23,6 +24,10 @@ const AddBookForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const backToHomeButton = () => {
+    props.choice1(false);
+  }
+
   const handleSubmit = () => {
     if (
       formData.title &&
@@ -33,7 +38,7 @@ const AddBookForm = () => {
       
       //console.log(formData);
 
-      Axios.post('http://localhost:3010/books/addBook', {
+      Axios.post('http://localhost:3020/books/addBook', {
         title:formData.title,
         author:formData.author,
         genere:formData.genere,
@@ -69,7 +74,10 @@ const AddBookForm = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <div style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '8px' }}>
       <Typography variant="h5" gutterBottom>
-        Employee Details
+        Add New Book
+        <div className={classes.backButton}>
+              <CancelOutlinedIcon sx={{fontSize: 32}} onClick={backToHomeButton}/>
+        </div>
       </Typography>
       <form>
         <TextField

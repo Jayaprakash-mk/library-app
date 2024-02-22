@@ -3,6 +3,9 @@ import Axios from 'axios';
 import { Pagination, Typography, Box, Container, Grid, Paper, styled} from '@mui/material';
 import { Button } from '@mui/material';
 import BookFilter from './BookFilter.js';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import classes from "./css/HomePage.module.css";
+
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: '#333', // Dark grey-black background color
@@ -27,7 +30,8 @@ const AddBookButton = styled(Button)({
     marginLeft: '8px',
 });
 
-const BookList = () => {
+
+const BookList = (props) => {
   const [books, setBooks] = useState([]);
   const [filters, setFilters] = useState({
     title: '',
@@ -38,10 +42,14 @@ const BookList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const backToHomeButton = () => {
+    props.choice2(false);
+  }
+
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await Axios.get(`http://localhost:3010/books?page=${currentPage}`, {
+        const response = await Axios.get(`http://localhost:3020/books?page=${currentPage}`, {
           params: filters,
         });
         console.log(response.data.books)
@@ -64,16 +72,16 @@ const BookList = () => {
     setCurrentPage(1);
   };
 
-  const handleAddBookClick = () => {
-    // Navigate to the AddBookForm page
-    //history.push('./addBookForm.js');
-  };
+  
 
   return (
     <Container>
       <Box my={3}>
         <Typography variant="h4" gutterBottom>
           Library Management
+          <div className={classes.backButton}>
+              <CancelOutlinedIcon sx={{fontSize: 32}} onClick={backToHomeButton}/>
+        </div>
         </Typography>
         <BookFilter filters={filters} onFilterChange={handleFilterChange} />
       </Box>
@@ -86,7 +94,7 @@ const BookList = () => {
                 <Typography variant="h6" style={titleTextStyle}>Book Title: {book.title}</Typography>
                 <Typography variant="body1" style={bodyTextStyle}>Author: {book.author}</Typography>
                 <Typography variant="body1" style={bodyTextStyle}>Genre: {book.genere}</Typography>
-                <Typography variant="body1" style={bodyTextStyle}>Published Date: {book.publishDate}</Typography>
+                <Typography variant="body1" style={bodyTextStyle}>Published Date: {book.date}</Typography>
                 
               </StyledPaper>
             </Grid>

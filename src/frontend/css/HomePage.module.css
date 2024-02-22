@@ -66,3 +66,14 @@
     border: whitesmoke solid .15rem;
 
 }
+
+.backButton{
+    padding: 1.2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 42px;
+    color: #363636;
+
+}

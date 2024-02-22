@@ -20,8 +20,8 @@ function App() {
   return (
     <>
       {!Add && !View && <HomePage choice1={AddData} choice2={ViewData}/>}
-      {Add && !View && <AddBookForm/>}
-      {View && !Add && <BookList/>}
+      {Add && !View && <AddBookForm choice1={AddData}/>}
+      {View && !Add && <BookList choice2={ViewData}/>}
     </>
   );
 }
