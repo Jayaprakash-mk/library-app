@@ -21,9 +21,9 @@ const getAllBooks = async (req, res, next) => {
       skip: (page - 1) * itemsPerPage,
       take: itemsPerPage,
       where: {
-        title: { contains: title || '' },
-        author: { contains: author || '' },
-        genere: { contains: genere || '' },
+        title: { contains: title.toLowerCase() || '' },
+        author: { contains: author.toLowerCase() || '' },
+        genere: { contains: genere.toLowerCase() || '' },
         
       },
     });
@@ -45,9 +45,9 @@ const addNewBook = async (req, res, next) => {
         
         const users = await prisma.Books.create({
             data : {
-                title,
-                author,
-                genere,
+                title: title.toLowerCase(),
+                author: author.toLowerCase(),
+                genere: genere.toLowerCase(),
                 date: parseInt(date)
             },
         });
