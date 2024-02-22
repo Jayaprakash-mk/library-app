@@ -49,7 +49,7 @@ const BookList = (props) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await Axios.get(`http://localhost:3020/books?page=${currentPage}`, {
+        const response = await Axios.get(`https://considerable-harlie-jayaprakashmk.koyeb.app/books?page=${currentPage}`, {
           params: filters,
         });
         console.log(response.data.books)
