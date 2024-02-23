@@ -42,7 +42,9 @@ const addNewBook = async (req, res, next) => {
     try{
         //console.log(req.body);
         const {title, author, genere, date} = req.body;
-        
+        if (date > 2024){
+          return res.status(200).json({message: "year ERROR"});
+        }
         const users = await prisma.Books.create({
             data : {
                 title: title.toLowerCase(),

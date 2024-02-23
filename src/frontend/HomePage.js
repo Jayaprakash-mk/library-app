@@ -14,8 +14,8 @@ const HomePage = (props) => {
             <div className={classes.Choice}>
                 <h2>Choose</h2>
                 <div className={classes.options}>
-                    <button className={classes.AddBtn} onClick={AddData}>Add</button>
-                    <button className={classes.AddBtn} onClick={ViewData}>View</button>
+                    <button className={classes.AddBtn} onClick={AddData}>Admin</button>
+                    <button className={classes.AddBtn} onClick={ViewData}>Books</button>
                 </div>
             </div>
         </div>
