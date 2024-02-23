@@ -1,0 +1,22 @@
+version: "1.0"
+
+name: library-management
+
+services:
+
+  library-frontend:
+    container_name: library-frontend
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:80
+    restart: always
+
+  library-backend:
+    container_name: library-backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+    - 3000:3000

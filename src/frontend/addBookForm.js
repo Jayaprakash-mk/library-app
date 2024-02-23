@@ -19,9 +19,18 @@ const AddBookForm = (props) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [showRequestError, setRequestError] = useState(false);
-
+  const [showInvalidDate, setInvalidDate] = useState(false);
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'date') {
+      if (parseInt(value, 10) > 2024) {
+        setInvalidDate(true);
+        return;
+      }
+    }
+
+    // Update the form data
+    setFormData({ ...formData, [name]: value });
   };
 
   const backToHomeButton = () => {
@@ -142,6 +151,11 @@ const AddBookForm = (props) => {
       {showErrorAlert && (
         <Alert severity="error" onClose={() => setShowErrorAlert(false)}>
           Please fill in all required fields.
+        </Alert>
+      )}
+      {showInvalidDate && (
+        <Alert severity="error" onClose={() => setInvalidDate(false)}>
+          Invalid year in Published year field!!!
         </Alert>
       )}
     </div>
