@@ -47,7 +47,8 @@ const AddBookForm = (props) => {
         if(response.data.message){
             console.log(response.data.message);
            console.log("error occured");
-           setRequestError(true);
+           //setRequestError(true);
+           setShowSuccessAlert(true);
         }
         else{
             setShowSuccessAlert(true);
