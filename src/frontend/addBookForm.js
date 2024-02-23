@@ -27,6 +27,9 @@ const AddBookForm = (props) => {
         setInvalidDate(true);
         return;
       }
+      else{
+        setInvalidDate(false);
+      }
     }
 
     // Update the form data
