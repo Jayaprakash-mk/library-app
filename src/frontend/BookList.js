@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import BookFilter from './BookFilter.js';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import classes from "./css/HomePage.module.css";
-
+import Loader from './Loader';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     backgroundColor: '#333', // Dark grey-black background color
@@ -41,6 +41,7 @@ const BookList = (props) => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const backToHomeButton = () => {
     props.choice2(false);
@@ -49,6 +50,7 @@ const BookList = (props) => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
+        setIsLoading(true);
         const response = await Axios.get(`https://considerable-harlie-jayaprakashmk.koyeb.app/books?page=${currentPage}`, {
           params: filters,
         });
@@ -57,6 +59,8 @@ const BookList = (props) => {
         setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error('Error fetching books', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -86,8 +90,10 @@ const BookList = (props) => {
         <BookFilter filters={filters} onFilterChange={handleFilterChange} />
       </Box>
       <Grid container spacing={6}>
-        {books && books.length > 0 ? (
-          books.map((book) => (
+        {isLoading ? (<Loader />
+        ) : ( 
+          books && books.length > 0 ? (
+           books.map((book) => (
             <Grid item xs={12} sm={4} key={book.id}>
 
               <StyledPaper>
@@ -101,11 +107,14 @@ const BookList = (props) => {
           ))
         ) : (
           <Typography variant="body1" style={bodyTextStyle}>No books found.</Typography>
-        )}
+        )
+      )}
       </Grid>
-      <Grid container justifyContent="center" style={{ marginTop: '48px' }}>
-        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
-      </Grid>
+      {(!isLoading && (books && books.length > 0)) && (
+        <Grid container justifyContent="center" style={{ marginTop: '48px' }}>
+          <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
+        </Grid>
+      )}
       {/* <Grid container justifyContent="center" style={{ marginTop: '16px' }}>
         <AddBookButton variant="contained" onClick={handleAddBookClick}>
           Add Book
