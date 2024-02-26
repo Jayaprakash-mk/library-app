@@ -85,7 +85,7 @@ const BookList = (props) => {
           Library Management
           <div className={classes.backButton}>
               <CancelOutlinedIcon sx={{fontSize: 32}} onClick={backToHomeButton}/>
-        </div>
+          </div>
         </Typography>
         <BookFilter filters={filters} onFilterChange={handleFilterChange} />
       </Box>
