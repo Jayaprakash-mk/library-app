@@ -14,12 +14,15 @@ const AddBookForm = (props) => {
     author: '',
     genere: '',
     date: 0,
+    onlinePurchaseLink: '',
   });
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [showRequestError, setRequestError] = useState(false);
   const [showInvalidDate, setInvalidDate] = useState(false);
+  const [showInvalidLink, setInvalidLink] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'date') {
@@ -32,9 +35,38 @@ const AddBookForm = (props) => {
       }
     }
 
+    // if(name === 'onlinePurchaseLink'){
+    //   const isValidLinkFormat = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
+
+    //   if (value && !isValidLinkFormat) {
+    //       //return res.status(200).json({ message: "Invalid URL format for onlinePurchaseLink" });
+    //       setInvalidLink(true);
+    //       return;
+    //   }
+    //   else{
+    //     setInvalidLink(false);
+    //   }
+      
+      // if(value){
+      //   try {
+      //     const response = Axios.head(value);
+      //       if (response.status !== 200) {
+      //         //return res.status(200).json({ message: "Online purchase link is not reachable" });
+      //         setInvalidLink(true);
+      //         return;
+      //       }
+      //     } catch (error) {
+      //       //return res.status(200).json({ message: "Error checking link reachability", cause: error.message });
+      //       setInvalidLink(true);
+      //       return;
+      //     }
+      // }
+    //}
+
     // Update the form data
     setFormData({ ...formData, [name]: value });
   };
+
 
   const backToHomeButton = () => {
     props.choice1(false);
@@ -55,28 +87,28 @@ const AddBookForm = (props) => {
         author:formData.author,
         genere:formData.genere,
         date:formData.date,
+        onlinePurchaseLink: formData.onlinePurchaseLink,
     }).then((response) => {
-        if(response.data.message){
+        if(response.data.message === "Error in DNS"){
             console.log(response.data.message);
-           console.log("error occured");
+            setInvalidLink(true);
+            return;
+            // console.log("error occured");
            //setRequestError(true);
-           setShowSuccessAlert(true);
+            //setShowSuccessAlert(true);
         }
         else{
             setShowSuccessAlert(true);
+            setFormData({
+              title: '',
+              author: '',
+              genere: '',
+              date: 0,
+              onlinePurchaseLink: '',
+            });
         }
     });
 
-      // Show success alert
-      //setShowSuccessAlert(true);
-
-      // Clear the form
-      setFormData({
-        title: '',
-        author: '',
-        genere: '',
-        date: 0,
-      });
     } else {
       // Show error alert
       setShowErrorAlert(true);
@@ -137,6 +169,15 @@ const AddBookForm = (props) => {
           fullWidth
           margin="normal"
         />
+
+        <TextField
+            label="Online Purchase Link (optional)"
+            name="onlinePurchaseLink"
+            value={formData.onlinePurchaseLink}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
         <Button variant="contained" color="primary" onClick={handleSubmit} style={{ marginTop: '20px', marginLeft: 'auto', marginRight: 'auto', display: 'block' }}>
           Submit
         </Button>
@@ -159,6 +200,12 @@ const AddBookForm = (props) => {
       {showInvalidDate && (
         <Alert severity="error" onClose={() => setInvalidDate(false)}>
           Invalid year in Published year field!!!
+        </Alert>
+      )}
+
+      {showInvalidLink && (
+        <Alert severity="error" onClose={() => setInvalidLink(false)}>
+          Invalid URL format for onlinePurchaseLink
         </Alert>
       )}
     </div>

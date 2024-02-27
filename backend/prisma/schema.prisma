@@ -14,5 +14,6 @@ model Books {
     author String 
     genere String
     date Int
+    onlinePurchaseLink String?
 }
 

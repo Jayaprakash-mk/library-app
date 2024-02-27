@@ -38,6 +38,7 @@ const BookList = (props) => {
     author: '',
     genere: '',
     date: 0,
+    onlinePurchaseLink:'',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -101,7 +102,14 @@ const BookList = (props) => {
                 <Typography variant="body1" style={bodyTextStyle}>Author: {book.author}</Typography>
                 <Typography variant="body1" style={bodyTextStyle}>Genre: {book.genere}</Typography>
                 <Typography variant="body1" style={bodyTextStyle}>Published Date: {book.date}</Typography>
-                
+                 {book.onlinePurchaseLink ? (
+                    <Typography variant="h9" style={titleTextStyle}>Online Purchase URL:  {
+                      <a href={book.onlinePurchaseLink} target="_blank" rel="noopener noreferrer" style={{color: "white"}}>Buy Online</a>
+                    }</Typography>
+                    
+                  ) : (
+                    <Typography variant="body1" style={{color:"red"}}>Only available in library</Typography>
+                  )}
               </StyledPaper>
             </Grid>
           ))
