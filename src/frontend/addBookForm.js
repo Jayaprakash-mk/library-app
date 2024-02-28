@@ -35,35 +35,6 @@ const AddBookForm = (props) => {
       }
     }
 
-    // if(name === 'onlinePurchaseLink'){
-    //   const isValidLinkFormat = /^(ftp|http|https):\/\/[^ "]+$/.test(value);
-
-    //   if (value && !isValidLinkFormat) {
-    //       //return res.status(200).json({ message: "Invalid URL format for onlinePurchaseLink" });
-    //       setInvalidLink(true);
-    //       return;
-    //   }
-    //   else{
-    //     setInvalidLink(false);
-    //   }
-      
-      // if(value){
-      //   try {
-      //     const response = Axios.head(value);
-      //       if (response.status !== 200) {
-      //         //return res.status(200).json({ message: "Online purchase link is not reachable" });
-      //         setInvalidLink(true);
-      //         return;
-      //       }
-      //     } catch (error) {
-      //       //return res.status(200).json({ message: "Error checking link reachability", cause: error.message });
-      //       setInvalidLink(true);
-      //       return;
-      //     }
-      // }
-    //}
-
-    // Update the form data
     setFormData({ ...formData, [name]: value });
   };
 
@@ -89,7 +60,7 @@ const AddBookForm = (props) => {
         date:formData.date,
         onlinePurchaseLink: formData.onlinePurchaseLink,
     }).then((response) => {
-        if(response.data.message === "Error in DNS"){
+        if(response.data.message === "Error in DNS" || response.data.message === "Invalid URL format for onlinePurchaseLink"){
             console.log(response.data.message);
             setInvalidLink(true);
             return;
